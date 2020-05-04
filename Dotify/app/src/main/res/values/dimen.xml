@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="containerPadding">16dp</dimen>
+    <dimen name="albumCoverHeight">300dp</dimen>
+    <dimen name="albumCoverTopMargin">10dp</dimen>
+    <dimen name="numPlayTopMargin">8dp</dimen>
+</resources>

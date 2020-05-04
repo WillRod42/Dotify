@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 etUsername.visibility = EditText.VISIBLE
                 btnChangeUser.text = getString(R.string.btnChangeUserAltText)
                 etUsername.text.clear()
-            } else {
+            } else if(!etUsername.text.isBlank()) {
                 tvUsername.visibility = TextView.VISIBLE
                 etUsername.visibility = EditText.INVISIBLE
                 tvUsername.text = etUsername.text.toString()
