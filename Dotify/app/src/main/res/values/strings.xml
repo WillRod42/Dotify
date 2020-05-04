@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Dotify</string>
+    <string name="username">Username Here</string>
+    <string name="btnChangeUserText">CHANGE USER</string>
+    <string name="albumCoverDesc">One Republic Waking Up album cover</string>
+    <string name="songTitle">All The Right Moves</string>
+    <string name="artistName">One Republic</string>
+    <string name="ibPrevDesc">Previous track button</string>
+    <string name="ibPlayDesc">Play track button</string>
+    <string name="ibNextDesc">Next track button</string>
 </resources>
