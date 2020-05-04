@@ -17,6 +17,20 @@
         app:layout_constraintBottom_toTopOf="@+id/ivAlbumCover"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/etUsernameHint"
+        android:inputType="text"
+        android:visibility="invisible"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnChangeUser"
+        app:layout_constraintBottom_toTopOf="@+id/ivAlbumCover"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <Button
         android:id="@+id/btnChangeUser"
@@ -31,7 +45,7 @@
         android:id="@+id/ivAlbumCover"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:scaleType="fitXY"
         android:src="@drawable/onerepublic_waking_up_cover"
         android:contentDescription="@string/albumCoverDesc"
@@ -49,6 +63,7 @@
 
     <TextView
         android:id="@+id/tvArtistName"
+        tools:text="ajsdhfiauwhfliaweuhfawuhfuiaehrgfoaiuhrgergiuherigueaoirgheairgieagioeahrg"
         style="@style/BodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,7 +77,7 @@
         android:id="@+id/tvPlays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         tools:text="999999 plays"
         style="@style/BodyText"
         app:layout_constraintTop_toBottomOf="@+id/tvArtistName"
@@ -74,7 +89,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_previous"
-        android:background="@color/white"
+        android:background="@color/transparent"
+        android:foreground="?selectableItemBackground"
         app:layout_constraintTop_toBottomOf="@+id/tvPlays"
         app:layout_constraintRight_toLeftOf="@+id/ibPlay"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -86,7 +102,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_play"
-        android:background="@color/white"
+        android:background="@color/transparent"
+        android:foreground="?selectableItemBackground"
         app:layout_constraintTop_toBottomOf="@+id/tvPlays"
         app:layout_constraintRight_toLeftOf="@+id/ibNext"
         app:layout_constraintLeft_toRightOf="@+id/ibPrev"
@@ -98,7 +115,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_next"
-        android:background="@color/white"
+        android:background="@color/transparent"
+        android:foreground="?selectableItemBackground"
         app:layout_constraintTop_toBottomOf="@+id/tvPlays"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/ibPlay"
