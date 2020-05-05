@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val tvUsername = findViewById<TextView>(R.id.tvUsername)
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val btnChangeUser = findViewById<Button>(R.id.btnChangeUser)
-        btnChangeUser.setOnClickListener { 
+        btnChangeUser.setOnClickListener {
             if(tvUsername.visibility == TextView.VISIBLE) {
                 tvUsername.visibility = TextView.INVISIBLE
                 etUsername.visibility = EditText.VISIBLE

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Dotify</string>
+    <string name="songListName">All Songs</string>
     <string name="username">Guest</string>
     <string name="btnChangeUserText">CHANGE USER</string>
     <string name="btnChangeUserAltText">APPLY</string>
