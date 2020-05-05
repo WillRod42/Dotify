@@ -25,17 +25,17 @@ class MainActivity : AppCompatActivity() {
         val ibPlay = findViewById<ImageButton>(R.id.ibPlay)
         val ibNext = findViewById<ImageButton>(R.id.ibNext)
 
-        ibPrev.setOnClickListener { ibPrev: View ->
+        ibPrev.setOnClickListener {
             Toast.makeText(this, "Skipping to previous track", Toast.LENGTH_SHORT).show()
         }
 
-        ibPlay.setOnClickListener { ibPlay: View ->
+        ibPlay.setOnClickListener {
             numPlays += 1
             playText = "${numPlays.toString()}  plays"
             tvPlays.text = playText
         }
 
-        ibNext.setOnClickListener { ibNext: View ->
+        ibNext.setOnClickListener {
             Toast.makeText(this, "Skipping to next track", Toast.LENGTH_SHORT).show()
         }
 
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val tvUsername = findViewById<TextView>(R.id.tvUsername)
         val etUsername = findViewById<EditText>(R.id.etUsername)
         val btnChangeUser = findViewById<Button>(R.id.btnChangeUser)
-        btnChangeUser.setOnClickListener { view: View ->
+        btnChangeUser.setOnClickListener { 
             if(tvUsername.visibility == TextView.VISIBLE) {
                 tvUsername.visibility = TextView.INVISIBLE
                 etUsername.visibility = EditText.VISIBLE
