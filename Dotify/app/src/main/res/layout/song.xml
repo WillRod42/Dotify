@@ -4,12 +4,16 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:foreground="?selectableItemBackground">
+    android:foreground="?selectableItemBackground"
+    android:layout_marginLeft="@dimen/listItemLeftRightMargin"
+    android:layout_marginRight="@dimen/listItemLeftRightMargin"
+    android:layout_marginTop="@dimen/listItemTopBottomMargin"
+    android:layout_marginBottom="@dimen/listItemTopBottomMargin">
 
     <ImageView
         android:id="@+id/ivSong"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/listImageSize"
+        android:layout_height="@dimen/listImageSize"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -17,6 +21,7 @@
         android:id="@+id/tvSongListTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/listImageMargin"
         tools:text="TEST"
         app:layout_constraintLeft_toRightOf="@+id/ivSong"
         app:layout_constraintTop_toTopOf="@+id/ivSong"
@@ -26,7 +31,8 @@
         android:id="@+id/tvArtistListName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="TESTTEST"
+        android:layout_marginStart="@dimen/listImageMargin"
+        tools:text="TESTTESTTETSETTSETETSETSETSTESTEE"
         app:layout_constraintTop_toBottomOf="@+id/tvSongListTitle"
         app:layout_constraintLeft_toRightOf="@+id/ivSong"
         app:layout_constraintBottom_toBottomOf="@+id/ivSong"/>

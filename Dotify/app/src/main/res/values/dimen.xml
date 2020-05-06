@@ -5,4 +5,8 @@
     <dimen name="albumCoverTopMargin">10dp</dimen>
     <dimen name="numPlayTopMargin">8dp</dimen>
     <dimen name="miniPlayerPadding">8dp</dimen>
+    <dimen name="listImageSize">50dp</dimen>
+    <dimen name="listImageMargin">8dp</dimen>
+    <dimen name="listItemLeftRightMargin">16dp</dimen>
+    <dimen name="listItemTopBottomMargin">8dp</dimen>
 </resources>
