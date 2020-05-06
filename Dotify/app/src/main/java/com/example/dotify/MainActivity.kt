@@ -2,23 +2,19 @@ package com.example.dotify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.*
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
     private var numPlays = Random.nextInt(1000, 10000000)
-    //private var username = getString(R.string.username)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val tvPlays = findViewById<TextView>(R.id.tvPlays)
-        var playText = "${numPlays.toString()}  plays"
-        tvPlays.text = playText
+        tvPlays.text = getString(R.string.numPlaysText).format(numPlays.toString())
 
         // Track Buttons
         val ibPrev = findViewById<ImageButton>(R.id.ibPrev)
@@ -31,8 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         ibPlay.setOnClickListener {
             numPlays += 1
-            playText = "${numPlays.toString()}  plays"
-            tvPlays.text = playText
+            tvPlays.text = getString(R.string.numPlaysText).format(numPlays.toString())
         }
 
         ibNext.setOnClickListener {
@@ -56,5 +51,9 @@ class MainActivity : AppCompatActivity() {
                 btnChangeUser.text = getString(R.string.btnChangeUserText)
             }
         }
+    }
+
+    companion object {
+        const val SONG_KEY = "song_key"
     }
 }

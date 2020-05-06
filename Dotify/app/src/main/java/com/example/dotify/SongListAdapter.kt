@@ -1,16 +1,17 @@
 package com.example.dotify
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ericchee.songdataprovider.Song
 
-class SongListAdapter(private val listOfSongs: List<Song>): RecyclerView.Adapter<SongListAdapter.SongViewHolder>() {
+class SongListAdapter(initialListOfSongs: List<Song>): RecyclerView.Adapter<SongListAdapter.SongViewHolder>() {
 
+    private var listOfSongs = initialListOfSongs.toList()
     var onSongClickListener: ((song: Song) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
@@ -23,6 +24,15 @@ class SongListAdapter(private val listOfSongs: List<Song>): RecyclerView.Adapter
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
         val songTitle = listOfSongs[position]
         holder.bind(songTitle)
+    }
+
+    fun change(newSongs: List<Song>) {
+        val callback = SongDiffCallback(listOfSongs, newSongs)
+        val diffResult = DiffUtil.calculateDiff(callback)
+        diffResult.dispatchUpdatesTo(this)
+
+        // We update the list
+        listOfSongs = newSongs
     }
 
     inner class SongViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

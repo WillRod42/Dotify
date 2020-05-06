@@ -13,4 +13,5 @@
     <string name="etUsernameHint">enter username here</string>
     <string name="btnShuffleText">SHUFFLE</string>
     <string name="miniPlayerTitle">%s - %s</string>
+    <string name="numPlaysText">%d plays</string>
 </resources>
