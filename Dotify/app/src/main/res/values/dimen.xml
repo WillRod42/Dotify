@@ -4,4 +4,5 @@
     <dimen name="albumCoverHeight">300dp</dimen>
     <dimen name="albumCoverTopMargin">10dp</dimen>
     <dimen name="numPlayTopMargin">8dp</dimen>
+    <dimen name="miniPlayerPadding">8dp</dimen>
 </resources>
