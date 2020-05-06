@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
+import com.example.dotify.MainActivity.Companion.IMAGE_KEY
 import com.example.dotify.MainActivity.Companion.SONG_KEY
 import kotlinx.android.synthetic.main.activity_song_list.*
 
@@ -25,6 +26,8 @@ class SongListActivity : AppCompatActivity() {
         val listOfSongs = SongDataProvider.getAllSongs()
         val songAdapter = SongListAdapter(listOfSongs)
 
+        tvMiniPlayerTitle.text = getString(R.string.miniPlayerTitle).format(currentSong.title, currentSong.artist)
+
         songAdapter.onSongClickListener = { song: Song ->
             currentSong = song
             tvMiniPlayerTitle.text = getString(R.string.miniPlayerTitle).format(song.title, song.artist)
@@ -41,6 +44,7 @@ class SongListActivity : AppCompatActivity() {
         llMiniPlayer.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra(SONG_KEY, currentSong)
+            intent.putExtra(IMAGE_KEY, currentSong.largeImageID)
             startActivity(intent)
         }
     }
