@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="containerPadding">16dp</dimen>
-    <dimen name="albumCoverHeight">300dp</dimen>
-    <dimen name="albumCoverTopMargin">10dp</dimen>
+    <dimen name="albumCoverHeight">0dp</dimen>
+    <dimen name="songTitleTopMargin">10dp</dimen>
     <dimen name="numPlayTopMargin">8dp</dimen>
     <dimen name="miniPlayerPadding">8dp</dimen>
     <dimen name="listImageSize">50dp</dimen>

@@ -25,7 +25,8 @@
         tools:text="TEST"
         app:layout_constraintLeft_toRightOf="@+id/ivSong"
         app:layout_constraintTop_toTopOf="@+id/ivSong"
-        app:layout_constraintBottom_toTopOf="@+id/tvArtistListName"/>
+        app:layout_constraintBottom_toTopOf="@+id/tvArtistListName"
+        style="@style/listText"/>
 
     <TextView
         android:id="@+id/tvArtistListName"
@@ -35,7 +36,8 @@
         tools:text="TESTTESTTETSETTSETETSETSETSTESTEE"
         app:layout_constraintTop_toBottomOf="@+id/tvSongListTitle"
         app:layout_constraintLeft_toRightOf="@+id/ivSong"
-        app:layout_constraintBottom_toBottomOf="@+id/ivSong"/>
+        app:layout_constraintBottom_toBottomOf="@+id/ivSong"
+        style="@style/listText"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

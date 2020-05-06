@@ -16,11 +16,11 @@ class MainActivity : AppCompatActivity() {
     private val ibPrev by lazy { findViewById<ImageButton>(R.id.ibPrev) }
     private val ibPlay by lazy { findViewById<ImageButton>(R.id.ibPlay) }
     private val ibNext by lazy { findViewById<ImageButton>(R.id.ibNext) }
-    private val tvUsername by lazy { findViewById<TextView>(R.id.tvUsername) }
-    private val etUsername by lazy { findViewById<EditText>(R.id.etUsername) }
-    private val btnChangeUser by lazy { findViewById<Button>(R.id.btnChangeUser) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        title = "Music Player"
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -39,20 +39,6 @@ class MainActivity : AppCompatActivity() {
 
         ibNext.setOnClickListener {
             Toast.makeText(this, "Skipping to next track", Toast.LENGTH_SHORT).show()
-        }
-
-        btnChangeUser.setOnClickListener {
-            if(tvUsername.visibility == TextView.VISIBLE) {
-                tvUsername.visibility = TextView.INVISIBLE
-                etUsername.visibility = EditText.VISIBLE
-                btnChangeUser.text = getString(R.string.btnChangeUserAltText)
-                etUsername.text.clear()
-            } else if(!etUsername.text.isBlank()) {
-                tvUsername.visibility = TextView.VISIBLE
-                etUsername.visibility = EditText.INVISIBLE
-                tvUsername.text = etUsername.text.toString()
-                btnChangeUser.text = getString(R.string.btnChangeUserText)
-            }
         }
     }
 
