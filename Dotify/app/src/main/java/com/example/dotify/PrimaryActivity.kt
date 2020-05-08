@@ -11,14 +11,26 @@ import kotlinx.android.synthetic.main.activity_primary.*
 class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
     private lateinit var currentSong: Song
 
+    companion object {
+        const val SAVE_SONG = "save_song"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_primary)
-
         supportActionBar?.title = "All Songs"
 
         val songList = ArrayList(SongDataProvider.getAllSongs())
-        initMiniPlayer(songList[0])
+        if(savedInstanceState != null) {
+            val savedSong = savedInstanceState.getParcelable<Song>(SAVE_SONG)
+            if(savedSong != null) {
+                currentSong = savedSong
+            }
+        } else {
+            currentSong = songList[0]
+        }
+
+        initMiniPlayer(currentSong)
 
         val songListFragment = SongListFragment()
         val argBundle = Bundle().apply {
@@ -50,6 +62,14 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
                 llMiniPlayer.visibility = LinearLayout.VISIBLE
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putParcelable(SAVE_SONG, currentSong)
+        }
+
+        super.onSaveInstanceState(outState)
     }
 
     override fun onSupportNavigateUp(): Boolean {
