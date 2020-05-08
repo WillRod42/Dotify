@@ -34,6 +34,10 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
             onMiniPlayerClick(currentSong)
         }
 
+        btnShuffle.setOnClickListener {
+            songListFragment.shuffleList()
+        }
+
         supportFragmentManager.addOnBackStackChangedListener {
             val hasBackStack = supportFragmentManager.backStackEntryCount > 0
             if(hasBackStack) {
