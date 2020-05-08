@@ -2,6 +2,7 @@ package com.example.dotify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
 import com.example.dotify.SongListFragment.Companion.ARG_SONG_LIST
@@ -58,6 +59,8 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
         } else {
             nowPlayingFragment.updateSong(song)
         }
+
+        llMiniPlayer.visibility = LinearLayout.GONE
     }
 
     override fun onSongClick(song: Song) {
