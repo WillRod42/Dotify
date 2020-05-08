@@ -46,6 +46,7 @@ class NowPlayingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tvPlays.text = getString(R.string.numPlaysText).format(numPlays.toString())
+        updateViews()
     }
 
     fun updateSong(song: Song) {
@@ -56,7 +57,7 @@ class NowPlayingFragment : Fragment() {
     private fun updateViews() {
         tvSongTitle.text = song.title
         tvArtistName.text = song.artist
-        ivAlbumCover.setImageResource(song.smallImageID)
+        ivAlbumCover.setImageResource(song.largeImageID)
         ivAlbumCover.contentDescription = song.title
     }
 }
