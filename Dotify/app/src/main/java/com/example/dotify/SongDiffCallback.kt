@@ -9,10 +9,8 @@ class SongDiffCallback (private val oldSongs: List<Song>, private val newSongs: 
     override fun getNewListSize(): Int = newSongs.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-
         val oldSong = oldSongs[oldItemPosition]
         val newSong = newSongs[newItemPosition]
-
         return oldSong.id == newSong.id
     }
 
