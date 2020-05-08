@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.ericchee.songdataprovider.Song
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_primary.*
 import kotlinx.android.synthetic.main.fragment_now_playing.*
 import kotlinx.android.synthetic.main.fragment_now_playing.ivAlbumCover
@@ -49,6 +49,19 @@ class NowPlayingFragment : Fragment() {
 
         tvPlays.text = getString(R.string.numPlaysText).format(numPlays.toString())
         updateViews()
+
+        ibPrev.setOnClickListener {
+            Toast.makeText(context, "Skipping to previous track", Toast.LENGTH_SHORT).show()
+        }
+
+        ibPlay.setOnClickListener {
+            numPlays += 1
+            tvPlays.text = getString(R.string.numPlaysText).format(numPlays.toString())
+        }
+
+        ibNext.setOnClickListener {
+            Toast.makeText(context, "Skipping to next track", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun updateSong(song: Song) {

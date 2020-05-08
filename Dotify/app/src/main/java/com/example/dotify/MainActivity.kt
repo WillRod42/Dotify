@@ -13,9 +13,9 @@ class MainActivity : AppCompatActivity() {
     private val tvSongTitle by lazy { findViewById<TextView>(R.id.tvSongTitle) }
     private val tvArtistName by lazy { findViewById<TextView>(R.id.tvArtistName) }
     private val ivAlbumCover by lazy { findViewById<ImageView>(R.id.ivAlbumCover) }
-    private val ibPrev by lazy { findViewById<ImageButton>(R.id.ibPrev) }
-    private val ibPlay by lazy { findViewById<ImageButton>(R.id.ibPlay) }
-    private val ibNext by lazy { findViewById<ImageButton>(R.id.ibNext) }
+//    private val ibPrev by lazy { findViewById<ImageButton>(R.id.ibPrev) }
+//    private val ibPlay by lazy { findViewById<ImageButton>(R.id.ibPlay) }
+//    private val ibNext by lazy { findViewById<ImageButton>(R.id.ibNext) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -28,18 +28,18 @@ class MainActivity : AppCompatActivity() {
         val imgID = intent.getIntExtra(IMAGE_KEY, -1)
         initText(song, imgID)
 
-        ibPrev.setOnClickListener {
-            Toast.makeText(this, "Skipping to previous track", Toast.LENGTH_SHORT).show()
-        }
-
-        ibPlay.setOnClickListener {
-            numPlays += 1
-            tvPlays.text = getString(R.string.numPlaysText).format(numPlays.toString())
-        }
-
-        ibNext.setOnClickListener {
-            Toast.makeText(this, "Skipping to next track", Toast.LENGTH_SHORT).show()
-        }
+//        ibPrev.setOnClickListener {
+//            Toast.makeText(this, "Skipping to previous track", Toast.LENGTH_SHORT).show()
+//        }
+//
+//        ibPlay.setOnClickListener {
+//            numPlays += 1
+//            tvPlays.text = getString(R.string.numPlaysText).format(numPlays.toString())
+//        }
+//
+//        ibNext.setOnClickListener {
+//            Toast.makeText(this, "Skipping to next track", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private fun initText(song: Song?, imgID: Int) {

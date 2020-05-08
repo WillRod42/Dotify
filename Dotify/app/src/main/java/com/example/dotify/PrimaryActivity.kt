@@ -15,7 +15,7 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_primary)
 
-        //val nowPlayingFragment
+        supportActionBar?.title = "All Songs"
 
         val songList = ArrayList(SongDataProvider.getAllSongs())
         initMiniPlayer(songList[0])
@@ -33,6 +33,24 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
         llMiniPlayer.setOnClickListener {
             onMiniPlayerClick(currentSong)
         }
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            val hasBackStack = supportFragmentManager.backStackEntryCount > 0
+            if(hasBackStack) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                supportActionBar?.title = "Now Playing"
+                llMiniPlayer.visibility = LinearLayout.GONE
+            } else {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                supportActionBar?.title = "All Songs"
+                llMiniPlayer.visibility = LinearLayout.VISIBLE
+            }
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        supportFragmentManager.popBackStack()
+        return super.onNavigateUp()
     }
 
     private fun initMiniPlayer(firstSong: Song) {
@@ -59,8 +77,6 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
         } else {
             nowPlayingFragment.updateSong(song)
         }
-
-        llMiniPlayer.visibility = LinearLayout.GONE
     }
 
     override fun onSongClick(song: Song) {

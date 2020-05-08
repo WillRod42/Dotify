@@ -58,34 +58,6 @@ class SongListFragment : Fragment() {
     fun shuffleList() {
         songListAdapter.change(listOfSongs.shuffled())
     }
-
-
-    //start Lifecycle Testing
-    override fun onPause() {
-        super.onPause()
-        Log.i("TESTING", "onPause()")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.i("TESTING", "onStop()")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.i("TESTING", "onDestroyView()")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i("TESTING", "onDestroy()")
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        Log.i("TESTING", "onDetach()")
-    }
-    //end
 }
 
 interface OnSongClickListener {
