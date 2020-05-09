@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="mediaButtonsTopMargin">20dp</dimen>
+    <dimen name="playBtnHeightWidth">75dp</dimen>
+    <dimen name="landscapeImageRightMargin">10dp</dimen>
+</resources>

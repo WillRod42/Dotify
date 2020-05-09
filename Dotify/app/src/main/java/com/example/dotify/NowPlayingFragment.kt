@@ -20,6 +20,7 @@ class NowPlayingFragment : Fragment() {
 
     companion object {
         const val SAVE_SONG = "save_song"
+        const val SAVE_PLAYS = "save_plays"
         const val ARG_SONG = "arg_song"
         const val TAG = "nowplayingfragment"
     }
@@ -32,6 +33,8 @@ class NowPlayingFragment : Fragment() {
             if(savedSong != null) {
                 currentSong = savedSong
             }
+
+            numPlays = savedInstanceState.getInt(SAVE_PLAYS, 0)
         } else {
             arguments?.let { args ->
                 val song = args.getParcelable<Song>(ARG_SONG)
@@ -39,10 +42,9 @@ class NowPlayingFragment : Fragment() {
                     this.currentSong = song
                 }
             }
+
+            numPlays = Random.nextInt(1000, 10000000)
         }
-
-
-        numPlays = Random.nextInt(1000, 10000000)
     }
 
     override fun onCreateView(
@@ -74,6 +76,7 @@ class NowPlayingFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putParcelable(SAVE_SONG, currentSong)
+        outState.putInt(SAVE_PLAYS, numPlays)
         super.onSaveInstanceState(outState)
     }
 
