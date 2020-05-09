@@ -1,4 +1,4 @@
-# Dotify HW2
+# Dotify HW3
 William Rodriguez
 
 ### Description of App
@@ -6,4 +6,4 @@ Dotify is a very basic Spotify clone. Has two screens, one where the user can ta
 
 
 ### Example of App on an Emulator
-<image src='./example.PNG' alt='example of Dotify on an emulator'/>
+<image src='./example.PNG' alt='example of Dotify on an emulator' width="500"/>
