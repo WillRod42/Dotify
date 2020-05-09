@@ -17,6 +17,7 @@ class SongListFragment : Fragment() {
 
     companion object {
         const val ARG_SONG_LIST = "arg_song_list"
+        const val TAG = "song_list_tag"
     }
 
     override fun onAttach(context: Context) {

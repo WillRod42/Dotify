@@ -2,6 +2,7 @@ package com.example.dotify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import com.ericchee.songdataprovider.Song
 import com.ericchee.songdataprovider.SongDataProvider
@@ -9,10 +10,12 @@ import com.example.dotify.SongListFragment.Companion.ARG_SONG_LIST
 import kotlinx.android.synthetic.main.activity_primary.*
 
 class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
+    private var nowPlaying = false
     private lateinit var currentSong: Song
 
     companion object {
         const val SAVE_SONG = "save_song"
+        const val SAVE_NOW_PLAYING = "save_now_playing"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,7 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
             if(savedSong != null) {
                 currentSong = savedSong
             }
+            nowPlaying = savedInstanceState.getBoolean(SAVE_NOW_PLAYING)
         } else {
             currentSong = songList[0]
         }
@@ -37,10 +41,13 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
             putParcelableArrayList(ARG_SONG_LIST, songList)
         }
         songListFragment.arguments = argBundle
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.fragContainer, songListFragment)
-            .commit()
+
+        if(supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragContainer, songListFragment, SongListFragment.TAG)
+                .commit()
+        }
 
         llMiniPlayer.setOnClickListener {
             onMiniPlayerClick(currentSong)
@@ -51,15 +58,16 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
         }
 
         supportFragmentManager.addOnBackStackChangedListener {
-            val hasBackStack = supportFragmentManager.backStackEntryCount > 0
-            if(hasBackStack) {
+            if(supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) != null) {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 supportActionBar?.title = "Now Playing"
                 llMiniPlayer.visibility = LinearLayout.GONE
+                nowPlaying = true
             } else {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 supportActionBar?.title = "All Songs"
                 llMiniPlayer.visibility = LinearLayout.VISIBLE
+                nowPlaying = false
             }
         }
     }
@@ -67,8 +75,8 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run {
             putParcelable(SAVE_SONG, currentSong)
+            putBoolean(SAVE_NOW_PLAYING, nowPlaying)
         }
-
         super.onSaveInstanceState(outState)
     }
 
@@ -95,12 +103,14 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
 
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.fragContainer, nowPlayingFragment, NowPlayingFragment.TAG)
                 .addToBackStack(NowPlayingFragment.TAG)
+                .add(R.id.fragContainer, nowPlayingFragment, NowPlayingFragment.TAG)
                 .commit()
         } else {
             nowPlayingFragment.updateSong(song)
         }
+
+
     }
 
     override fun onSongClick(song: Song) {

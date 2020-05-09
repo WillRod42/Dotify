@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.ericchee.songdataprovider.Song
-import kotlinx.android.synthetic.main.activity_primary.*
 import kotlinx.android.synthetic.main.fragment_now_playing.*
 import kotlinx.android.synthetic.main.fragment_now_playing.ivAlbumCover
 import kotlinx.android.synthetic.main.fragment_now_playing.tvArtistName
@@ -18,21 +16,31 @@ import kotlin.random.Random
 
 class NowPlayingFragment : Fragment() {
     private var numPlays = 0
-    private lateinit var song: Song
+    private lateinit var currentSong: Song
 
     companion object {
+        const val SAVE_SONG = "save_song"
         const val ARG_SONG = "arg_song"
         const val TAG = "nowplayingfragment"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let { args ->
-            val song = args.getParcelable<Song>(ARG_SONG)
-            if(song != null) {
-                this.song = song
+
+        if(savedInstanceState != null) {
+            val savedSong = savedInstanceState.getParcelable<Song>(SAVE_SONG)
+            if(savedSong != null) {
+                currentSong = savedSong
+            }
+        } else {
+            arguments?.let { args ->
+                val song = args.getParcelable<Song>(ARG_SONG)
+                if(song != null) {
+                    this.currentSong = song
+                }
             }
         }
+
 
         numPlays = Random.nextInt(1000, 10000000)
     }
@@ -64,15 +72,20 @@ class NowPlayingFragment : Fragment() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(SAVE_SONG, currentSong)
+        super.onSaveInstanceState(outState)
+    }
+
     fun updateSong(song: Song) {
-        this.song = song
+        this.currentSong = song
         updateViews()
     }
 
     private fun updateViews() {
-        tvSongTitle.text = song.title
-        tvArtistName.text = song.artist
-        ivAlbumCover.setImageResource(song.largeImageID)
-        ivAlbumCover.contentDescription = song.title
+        tvSongTitle.text = currentSong.title
+        tvArtistName.text = currentSong.artist
+        ivAlbumCover.setImageResource(currentSong.largeImageID)
+        ivAlbumCover.contentDescription = currentSong.title
     }
 }
