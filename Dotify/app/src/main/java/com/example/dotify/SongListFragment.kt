@@ -2,13 +2,12 @@ package com.example.dotify
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ericchee.songdataprovider.Song
-import kotlinx.android.synthetic.main.activity_song_list.*
+import kotlinx.android.synthetic.main.fragment_song_list.*
 
 class SongListFragment : Fragment() {
     private lateinit var songListAdapter: SongListAdapter
