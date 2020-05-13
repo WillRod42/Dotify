@@ -15,7 +15,6 @@ class SongListFragment : Fragment() {
     private var onSongClick: OnSongClickListener? = null
 
     companion object {
-        const val ARG_SONG_LIST = "arg_song_list"
         const val TAG = "song_list_tag"
     }
 
@@ -24,16 +23,9 @@ class SongListFragment : Fragment() {
         if(context is OnSongClickListener) {
             onSongClick = context
         }
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let { args ->
-            val list = args.getParcelableArrayList<Song>(ARG_SONG_LIST)
-            if(list != null) {
-                this.listOfSongs = list
-            }
-        }
+        val dotifyApplication = context.applicationContext as DotifyApplication
+        this.listOfSongs = dotifyApplication.listOfSongs
     }
 
     override fun onCreateView(

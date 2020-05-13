@@ -2,15 +2,12 @@ package com.example.dotify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
 import com.ericchee.songdataprovider.Song
-import com.ericchee.songdataprovider.SongDataProvider
-import com.example.dotify.SongListFragment.Companion.ARG_SONG_LIST
 import kotlinx.android.synthetic.main.activity_primary.*
 
 class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
-    private lateinit var currentSong: Song
+    private lateinit var dotifyApplication: DotifyApplication
 
     companion object {
         const val SAVE_SONG = "save_song"
@@ -20,25 +17,12 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_primary)
 
-        val songList = ArrayList(SongDataProvider.getAllSongs())
-        if(savedInstanceState != null) {
-            val savedSong = savedInstanceState.getParcelable<Song>(SAVE_SONG)
-            if(savedSong != null) {
-                currentSong = savedSong
-            }
-        } else {
-            currentSong = songList[0]
-        }
+        dotifyApplication = this.applicationContext as DotifyApplication
 
         if(supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null) {
             supportActionBar?.title = "All Songs"
 
             val songListFragment = SongListFragment()
-            val argBundle = Bundle().apply {
-                putParcelableArrayList(ARG_SONG_LIST, songList)
-            }
-            songListFragment.arguments = argBundle
-
             supportFragmentManager
                 .beginTransaction()
                 .addToBackStack(SongListFragment.TAG)
@@ -46,11 +30,11 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
                 .commit()
         }
 
-        initMiniPlayer(currentSong)
+        initMiniPlayer(dotifyApplication.currentSong)
         changeLayout()
 
         llMiniPlayer.setOnClickListener {
-            onMiniPlayerClick(currentSong)
+            onMiniPlayerClick(dotifyApplication.currentSong)
         }
 
         btnShuffle.setOnClickListener {
@@ -65,7 +49,7 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run {
-            putParcelable(SAVE_SONG, currentSong)
+            putParcelable(SAVE_SONG, dotifyApplication.currentSong)
         }
         super.onSaveInstanceState(outState)
     }
@@ -98,11 +82,6 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
 
         if(nowPlayingFragment == null) {
             nowPlayingFragment = NowPlayingFragment()
-            val argBundle = Bundle().apply {
-                putParcelable(NowPlayingFragment.ARG_SONG, song)
-            }
-            nowPlayingFragment.arguments = argBundle
-
             supportFragmentManager
                 .beginTransaction()
                 .addToBackStack(NowPlayingFragment.TAG)
@@ -116,7 +95,7 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
     }
 
     override fun onSongClick(song: Song) {
-        currentSong = song
+        dotifyApplication.currentSong = song
         tvMiniPlayerTitle.text = getString(R.string.miniPlayerTitle).format(song.title, song.artist)
     }
 }

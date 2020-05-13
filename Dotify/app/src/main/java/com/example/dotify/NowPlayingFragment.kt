@@ -1,5 +1,6 @@
 package com.example.dotify
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -19,31 +20,23 @@ class NowPlayingFragment : Fragment() {
     private lateinit var currentSong: Song
 
     companion object {
-        const val SAVE_SONG = "save_song"
         const val SAVE_PLAYS = "save_plays"
-        const val ARG_SONG = "arg_song"
         const val TAG = "nowplayingfragment"
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val dotifyApplication = context.applicationContext as DotifyApplication
+        this.currentSong = dotifyApplication.currentSong
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        numPlays = Random.nextInt(1000, 10000000)
         if(savedInstanceState != null) {
-            val savedSong = savedInstanceState.getParcelable<Song>(SAVE_SONG)
-            if(savedSong != null) {
-                currentSong = savedSong
-            }
-
             numPlays = savedInstanceState.getInt(SAVE_PLAYS, 0)
-        } else {
-            arguments?.let { args ->
-                val song = args.getParcelable<Song>(ARG_SONG)
-                if(song != null) {
-                    this.currentSong = song
-                }
-            }
-
-            numPlays = Random.nextInt(1000, 10000000)
         }
     }
 
@@ -75,7 +68,6 @@ class NowPlayingFragment : Fragment() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putParcelable(SAVE_SONG, currentSong)
         outState.putInt(SAVE_PLAYS, numPlays)
         super.onSaveInstanceState(outState)
     }
