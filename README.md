@@ -6,4 +6,4 @@ Dotify is a very basic Spotify clone. Has two screens, one where the user can ta
 
 
 ### Example of App on an Emulator
-<image src='./example.PNG' alt='example of Dotify on an emulator' width="500"/>
+<image src='./example.PNG' alt='example of Dotify on an emulator' height="500"/>
