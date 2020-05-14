@@ -69,8 +69,11 @@ class PrimaryActivity : AppCompatActivity(),
 
     private fun fetchSongList() {
         apiManager.getSongs { songList ->
+            val songListFragment = getSongListFragment()
+            if(songListFragment == null) {
+                dotifyApplication.currentSong = songList.songs[0]
+            }
             dotifyApplication.listOfSongs = songList.songs
-            dotifyApplication.currentSong = songList.songs[0]
 
             updateSongList()
         }
