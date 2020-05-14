@@ -2,8 +2,10 @@ package com.example.dotify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import com.ericchee.songdataprovider.Song
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_primary.*
 
 class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
@@ -16,6 +18,42 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_primary)
+
+
+
+        val json = """
+            {
+              "title": "Dotify",
+              "numOfSongs": 47,
+              "songs": [
+                {
+                  "id": "1588825540885InTheEnd_LinkinPark",
+                  "title": "In The End",
+                  "artist": "Linkin Park",
+                  "durationMillis": 193790,
+                  "smallImageURL": "https://picsum.photos/seed/InTheEnd/50",
+                  "largeImageURL": "https://picsum.photos/seed/InTheEnd/256"
+                },
+                {
+                  "id": "1588825540953MaskDefinitelyOn_Future",
+                  "title": "Mask Definitely On",
+                  "artist": "Future",
+                  "durationMillis": 92949,
+                  "smallImageURL": "https://picsum.photos/seed/MaskDefinitelyOn/50",
+                  "largeImageURL": "https://picsum.photos/seed/MaskDefinitelyOn/256"
+                }
+              ]
+            }
+        """.trimIndent()
+
+        val gson = Gson()
+        val testList = gson.fromJson(json, SongList::class.java)
+
+        Log.i("TESTING", testList.toString())
+
+
+
+
 
         dotifyApplication = this.applicationContext as DotifyApplication
 
