@@ -1,4 +1,4 @@
-package com.example.dotify
+package com.example.dotify.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -7,13 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.ericchee.songdataprovider.Song
+import com.example.dotify.DotifyApplication
+import com.example.dotify.R
 import kotlinx.android.synthetic.main.fragment_now_playing.*
-import kotlinx.android.synthetic.main.fragment_now_playing.ivAlbumCover
-import kotlinx.android.synthetic.main.fragment_now_playing.tvArtistName
-import kotlinx.android.synthetic.main.fragment_now_playing.tvPlays
-import kotlinx.android.synthetic.main.fragment_now_playing.tvSongTitle
 import kotlin.random.Random
+import com.example.dotify.data.Song
+import com.squareup.picasso.Picasso
 
 class NowPlayingFragment : Fragment() {
     private var numPlays = 0
@@ -80,7 +79,7 @@ class NowPlayingFragment : Fragment() {
     private fun updateViews() {
         tvSongTitle.text = currentSong.title
         tvArtistName.text = currentSong.artist
-        ivAlbumCover.setImageResource(currentSong.largeImageID)
         ivAlbumCover.contentDescription = currentSong.title
+        Picasso.get().load(currentSong.largeImageURL).into(ivAlbumCover)
     }
 }

@@ -1,15 +1,20 @@
-package com.example.dotify
+package com.example.dotify.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.LinearLayout
-import com.ericchee.songdataprovider.Song
-import com.google.gson.Gson
+import android.widget.Toast
+import com.example.dotify.*
+import com.example.dotify.fragment.NowPlayingFragment
+import com.example.dotify.fragment.OnSongClickListener
+import com.example.dotify.fragment.SongListFragment
 import kotlinx.android.synthetic.main.activity_primary.*
+import com.example.dotify.data.Song
 
-class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
+class PrimaryActivity : AppCompatActivity(),
+    OnSongClickListener {
     private lateinit var dotifyApplication: DotifyApplication
+    private lateinit var apiManager: ApiManager
 
     companion object {
         const val SAVE_SONG = "save_song"
@@ -18,59 +23,12 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_primary)
-
-
-
-        val json = """
-            {
-              "title": "Dotify",
-              "numOfSongs": 47,
-              "songs": [
-                {
-                  "id": "1588825540885InTheEnd_LinkinPark",
-                  "title": "In The End",
-                  "artist": "Linkin Park",
-                  "durationMillis": 193790,
-                  "smallImageURL": "https://picsum.photos/seed/InTheEnd/50",
-                  "largeImageURL": "https://picsum.photos/seed/InTheEnd/256"
-                },
-                {
-                  "id": "1588825540953MaskDefinitelyOn_Future",
-                  "title": "Mask Definitely On",
-                  "artist": "Future",
-                  "durationMillis": 92949,
-                  "smallImageURL": "https://picsum.photos/seed/MaskDefinitelyOn/50",
-                  "largeImageURL": "https://picsum.photos/seed/MaskDefinitelyOn/256"
-                }
-              ]
-            }
-        """.trimIndent()
-
-        val gson = Gson()
-        val testList = gson.fromJson(json, SongList::class.java)
-
-        Log.i("TESTING", testList.toString())
-
-
-
-
+        supportActionBar?.title = "All Songs"
 
         dotifyApplication = this.applicationContext as DotifyApplication
+        apiManager = dotifyApplication.apiManager
 
-        if(supportFragmentManager.findFragmentByTag(SongListFragment.TAG) == null) {
-            supportActionBar?.title = "All Songs"
-
-            val songListFragment = SongListFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .addToBackStack(SongListFragment.TAG)
-                .add(R.id.fragContainer, songListFragment, SongListFragment.TAG)
-                .commit()
-        }
-
-        initMiniPlayer(dotifyApplication.currentSong)
-        changeLayout()
-
+        fetchSongList()
         llMiniPlayer.setOnClickListener {
             onMiniPlayerClick(dotifyApplication.currentSong)
         }
@@ -109,11 +67,51 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
         }
     }
 
+    private fun fetchSongList() {
+        apiManager.getSongs { songList ->
+            dotifyApplication.listOfSongs = songList.songs
+            dotifyApplication.currentSong = songList.songs[0]
+
+            updateSongList()
+        }
+    }
+
+    private fun updateSongList() {
+        if(dotifyApplication.listOfSongs[0].title == ApiManager.FAILED_REQUEST) {
+            //tvVolleyError.visibility = TextView.VISIBLE
+            Toast.makeText(this, "Volley Request Error:\nUnable to retrieve song list", Toast.LENGTH_LONG).show()
+        } else {
+            var songListFragment = getSongListFragment()
+            if(songListFragment == null) {
+                songListFragment = SongListFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .addToBackStack(SongListFragment.TAG)
+                    .add(
+                        R.id.fragContainer, songListFragment,
+                        SongListFragment.TAG
+                    )
+                    .commit()
+            } else {
+                songListFragment.updateList(dotifyApplication.listOfSongs)
+            }
+
+            initMiniPlayer(dotifyApplication.currentSong)
+            changeLayout()
+        }
+    }
+
     private fun initMiniPlayer(firstSong: Song) {
         onSongClick(firstSong)
     }
 
-    private fun getNowPlayingFragment() = supportFragmentManager.findFragmentByTag(NowPlayingFragment.TAG) as? NowPlayingFragment
+    private fun getSongListFragment() = supportFragmentManager.findFragmentByTag(
+        SongListFragment.TAG
+    ) as? SongListFragment
+
+    private fun getNowPlayingFragment() = supportFragmentManager.findFragmentByTag(
+        NowPlayingFragment.TAG
+    ) as? NowPlayingFragment
 
     private fun onMiniPlayerClick(song: Song) {
         var nowPlayingFragment = getNowPlayingFragment()
@@ -123,7 +121,10 @@ class PrimaryActivity : AppCompatActivity(), OnSongClickListener {
             supportFragmentManager
                 .beginTransaction()
                 .addToBackStack(NowPlayingFragment.TAG)
-                .add(R.id.fragContainer, nowPlayingFragment, NowPlayingFragment.TAG)
+                .add(
+                    R.id.fragContainer, nowPlayingFragment,
+                    NowPlayingFragment.TAG
+                )
                 .commit()
         } else {
             nowPlayingFragment.updateSong(song)

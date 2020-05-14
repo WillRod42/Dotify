@@ -1,17 +1,17 @@
 package com.example.dotify
 
 import android.app.Application
-import com.ericchee.songdataprovider.Song
-import com.ericchee.songdataprovider.SongDataProvider
+import com.example.dotify.data.Song
 
 class DotifyApplication: Application() {
-    lateinit var listOfSongs: List<Song>
+    lateinit var apiManager: ApiManager
     lateinit var currentSong: Song
+    lateinit var listOfSongs: List<Song>
+
 
     override fun onCreate() {
         super.onCreate()
 
-        listOfSongs = SongDataProvider.getAllSongs()
-        currentSong = listOfSongs[0]
+        apiManager = ApiManager(this)
     }
 }

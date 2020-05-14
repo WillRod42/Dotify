@@ -1,4 +1,4 @@
-package com.example.dotify
+package com.example.dotify.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ericchee.songdataprovider.Song
+import com.example.dotify.DotifyApplication
+import com.example.dotify.R
+import com.example.dotify.SongListAdapter
 import kotlinx.android.synthetic.main.fragment_song_list.*
+import com.example.dotify.data.Song
 
 class SongListFragment : Fragment() {
     private lateinit var songListAdapter: SongListAdapter
@@ -49,6 +52,10 @@ class SongListFragment : Fragment() {
 
     fun shuffleList() {
         songListAdapter.change(listOfSongs.shuffled())
+    }
+
+    fun updateList(songs: List<Song>) {
+        songListAdapter.change(songs)
     }
 }
 
