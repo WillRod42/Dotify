@@ -129,8 +129,6 @@ class PrimaryActivity : AppCompatActivity(),
         } else {
             nowPlayingFragment.updateSong(song)
         }
-
-
     }
 
     override fun onSongClick(song: Song) {
